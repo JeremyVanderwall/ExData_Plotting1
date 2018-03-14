@@ -1,0 +1,12 @@
+library(chron)
+
+myData <- read.csv("household_power_consumption.txt", sep = ";", stringsAsFactors = FALSE)
+myData$Date <- as.Date(myData$Date)
+myData$Time <- times(myData$Time)                 
+myData$Global_active_power <- as.numeric(myData$Global_active_power)
+myData$Global_reactive_power <- as.numeric(myData$Global_reactive_power)
+myData$Voltage <- as.numeric(myData$Voltage)
+myData$Global_intensity <- as.numeric(myData$Global_intensity)
+myData$Sub_metering_1 <- as.numeric(myData$Sub_metering_1)
+myData$Sub_metering_2 <- as.numeric(myData$Sub_metering_2)
+myData$Sub_metering_3 <- as.numeric(myData$Sub_metering_3)

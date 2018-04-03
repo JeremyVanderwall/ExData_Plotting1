@@ -1,12 +1,20 @@
 library(chron)
 
 myData <- read.csv("household_power_consumption.txt", sep = ";", stringsAsFactors = FALSE)
-myData$Date <- as.Date(myData$Date)
-myData$Time <- times(myData$Time)                 
-myData$Global_active_power <- as.numeric(myData$Global_active_power)
-myData$Global_reactive_power <- as.numeric(myData$Global_reactive_power)
-myData$Voltage <- as.numeric(myData$Voltage)
-myData$Global_intensity <- as.numeric(myData$Global_intensity)
-myData$Sub_metering_1 <- as.numeric(myData$Sub_metering_1)
-myData$Sub_metering_2 <- as.numeric(myData$Sub_metering_2)
-myData$Sub_metering_3 <- as.numeric(myData$Sub_metering_3)
+myData$Date <- as.Date(myData$Date, format = "%d/%m/%Y")
+myData$Time <- chron(times. = myData$Time)                  
+myData$Global_active_power <- as.numeric(as.character(myData$Global_active_power))
+myData$Global_reactive_power <- as.numeric(as.character(myData$Global_reactive_power))
+myData$Voltage <- as.numeric(as.character(myData$Voltage))
+myData$Global_intensity <- as.numeric(as.character(myData$Global_intensity))
+myData$Sub_metering_1 <- as.numeric(as.character(myData$Sub_metering_1))
+myData$Sub_metering_2 <- as.numeric(as.character(myData$Sub_metering_2))
+
+# Subset the data
+myData <- myData[myData$Date >="2007-02-01" , ]
+myData <- myData[myData$Date <"2007-02-02" , ]
+
+myData <- myData[with(myData, order(Time)), ]
+
+hist(myData$Global_active_power, col = "red", main = "Global Active Power", xlab = "Global Active Power (killowatts)", ylim=c(0,1200000), freq = TRUE)
+     

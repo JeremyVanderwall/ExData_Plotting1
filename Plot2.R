@@ -20,5 +20,7 @@ myData <- myData[with(myData, order(Time)), ]
 with (myData, plot(Time, Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)"))
 
 
-
+png(filename="plot2.png")
+with (myData, plot(Time, Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)"))
+dev.off()
 

@@ -15,6 +15,26 @@ myData <- myData[myData$Date >="2007-02-01" , ]
 myData <- myData[myData$Date <"2007-02-02" , ]
 
 myData <- myData[with(myData, order(Time)), ]
+par(mfrow = c(2,2))
+with (myData, plot(Time, Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)"))
+with (myData, plot(Time, Voltage, type="l", xlab="", ylab="Voltage"))
 
-hist(myData$Global_active_power, col = "red", main = "Global Active Power", xlab = "Global Active Power (killowatts)", ylim=c(0,1200000), freq = TRUE)
-     
+plot(myData$Time, myData$Sub_metering_1, type = "l", col = "black", xlab = "", ylab = "Energy sub Meetering")
+points(myData$Time, myData$Sub_metering_2, type = "l", col = "red", lwd=1)
+points(myData$Time, myData$Sub_metering_3, type = "l", col = "blue", lwd = 1)
+legend('topright', c("meet 1", "meet 2", "meet 3"), text.col = c("black", "red", "blue"))
+
+with (myData, plot(Time, Global_reactive_power, type="l", xlab="", ylab="Global Reactive Power (kilowatts)"))
+
+png(filename="plot4.png")
+par(mfrow = c(2,2))
+with (myData, plot(Time, Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)"))
+with (myData, plot(Time, Voltage, type="l", xlab="", ylab="Voltage"))
+
+plot(myData$Time, myData$Sub_metering_1, type = "l", col = "black", xlab = "", ylab = "Energy sub Meetering")
+points(myData$Time, myData$Sub_metering_2, type = "l", col = "red", lwd=1)
+points(myData$Time, myData$Sub_metering_3, type = "l", col = "blue", lwd = 1)
+legend('topright', c("meet 1", "meet 2", "meet 3"), text.col = c("black", "red", "blue"))
+
+with (myData, plot(Time, Global_reactive_power, type="l", xlab="", ylab="Global Reactive Power (kilowatts)"))
+dev.off()

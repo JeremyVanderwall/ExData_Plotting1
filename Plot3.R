@@ -19,3 +19,12 @@ myData <- myData[with(myData, order(Time)), ]
 plot(myData$Time, myData$Sub_metering_1, type = "l", col = "black", xlab = "", ylab = "Energy sub Meetering")
 points(myData$Time, myData$Sub_metering_2, type = "l", col = "red", lwd=1)
 points(myData$Time, myData$Sub_metering_3, type = "l", col = "blue", lwd = 1)
+legend('topright', c("meet 1", "meet 2", "meet 3"), text.col = c("black", "red", "blue"))
+
+png(filename="plot3.png")
+plot(myData$Time, myData$Sub_metering_1, type = "l", col = "black", xlab = "", ylab = "Energy sub Meetering")
+points(myData$Time, myData$Sub_metering_2, type = "l", col = "red", lwd=1)
+points(myData$Time, myData$Sub_metering_3, type = "l", col = "blue", lwd = 1)
+legend('topright', c("meet 1", "meet 2", "meet 3"), text.col = c("black", "red", "blue"))dev.off()
+dev.off()
+

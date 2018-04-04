@@ -1,8 +1,10 @@
-library(chron)
 
+#read in the data
 myData <- read.csv("household_power_consumption.txt", sep = ";", stringsAsFactors = FALSE)
-myData$Date <- as.Date(myData$Date, format = "%d/%m/%Y")
-myData$Time <- chron(times. = myData$Time)                  
+
+#correct data types
+myData$Time <- strptime(paste(myData$Date, myData$Time), "%d/%m/%Y%H:%M:%S")
+myData$Date <- as.Date(myData$Date, format = "%d/%m/%Y")         
 myData$Global_active_power <- as.numeric(as.character(myData$Global_active_power))
 myData$Global_reactive_power <- as.numeric(as.character(myData$Global_reactive_power))
 myData$Voltage <- as.numeric(as.character(myData$Voltage))
@@ -11,10 +13,9 @@ myData$Sub_metering_1 <- as.numeric(as.character(myData$Sub_metering_1))
 myData$Sub_metering_2 <- as.numeric(as.character(myData$Sub_metering_2))
 
 # Subset the data
-myData <- myData[myData$Date >="2007-02-01" , ]
-myData <- myData[myData$Date <"2007-02-02" , ]
+myData <- myData[myData$Date == "2007-02-01" | myData$Date =="2007-02-02", ]
 
-myData <- myData[with(myData, order(Time)), ]
+#plot to screen to verify it looks right
 par(mfrow = c(2,2))
 with (myData, plot(Time, Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)"))
 with (myData, plot(Time, Voltage, type="l", xlab="", ylab="Voltage"))
@@ -26,6 +27,8 @@ legend('topright', c("meet 1", "meet 2", "meet 3"), text.col = c("black", "red",
 
 with (myData, plot(Time, Global_reactive_power, type="l", xlab="", ylab="Global Reactive Power (kilowatts)"))
 
+
+#plot to file
 png(filename="plot4.png")
 par(mfrow = c(2,2))
 with (myData, plot(Time, Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)"))
@@ -38,3 +41,4 @@ legend('topright', c("meet 1", "meet 2", "meet 3"), text.col = c("black", "red",
 
 with (myData, plot(Time, Global_reactive_power, type="l", xlab="", ylab="Global Reactive Power (kilowatts)"))
 dev.off()
+
